@@ -9,46 +9,32 @@ from feast.infra.offline_stores.contrib.postgres_offline_store.postgres_source i
 from feast import Entity, FeatureStore, FeatureView, FileSource, ValueType,Field
 from datetime import datetime, timedelta
 
-DB_NAME='postgres'
-DB_USER='postgres'
-DB_PASSWORD='admin'
-DB_HOST='localhost'
-DB_PORT='5432'
-
-customer = Entity(name="customer_id", value_type=ValueType.INT64)
-
-f_source = FileSource(
-    path=r"C:\Users\sahus\Documents\DMML\feature_repo\feature_repo\data\raw.csv",
-    timestamp_field="event_timestamp",
-    created_timestamp_column="created",
+# Define the data source
+customer_data_source = FileSource(
+    path="data/dataprep.csv",  # Ensure the file path is correct
+    timestamp_field="Last_Interaction",  # Event time (e.g., customer activity)
+    created_timestamp_column="Ingestion_Time"  # Column for data ingestion time
 )
 
-customer_features_fv = FeatureView(
+# Define the Customer entity
+customer = Entity(name="CustomerID", join_keys=["CustomerID"], value_type=ValueType.INT64)  # Ensure "CustomerID" exists in the dataset
+
+# Define feature view
+customer_features = FeatureView(
     name="customer_features_view",
-    ttl=timedelta(days=3),
-    entities=[customer],
-    schema=[
-        Field(name="Age", dtype=Int64),
-        Field(name="Gender", dtype=Int64),
-        Field(name="Tenure", dtype=Int64),
-        Field(name="Usage Frequency", dtype=Int64),
-        Field(name="Support Calls", dtype=Int64),
-        Field(name="Payment Delay", dtype=Int64),
-        Field(name="Subscription Type", dtype=Int64),
-        Field(name="Contract Length", dtype=Int64),
-        Field(name="Total Spend", dtype=Float32),
-        Field(name="Last Interaction", dtype=Int64),
-        Field(name="Churn", dtype=Int64),
-        Field(name="Avg Monthly Spend", dtype=Float32),
-        Field(name="Activity Rate", dtype=Float32),
+    entities=["customer_id"],
+    ttl=None,
+    schema=[  # ✅ Use Field instead of Feature
+        Field(name="Age", dtype=Int32),
+        Field(name="Gender", dtype=String),
+        Field(name="Tenure", dtype=Int32),
+        Field(name="Usage_Frequency", dtype=Float32),
+        Field(name="Support_Calls", dtype=Int32),
+        Field(name="Payment_Delay", dtype=Float32),
+        Field(name="Subscription_Type", dtype=String),
+        Field(name="Contract_Length", dtype=Int32),
+        Field(name="Total_Spend", dtype=Float32),
+        Field(name="Churn", dtype=String),
     ],
-    source=f_source
+    source=customer_data_source
 )
-
-# Save Feast feature repository
-repo_path = r"c:/Users/sahus/Documents/DMML/feature_repo/feature_repo"
-
-store = FeatureStore(repo_path)
-store.apply([customer, customer_features_fv])
-
-print("Feast feature store configured for telecom churn data.")

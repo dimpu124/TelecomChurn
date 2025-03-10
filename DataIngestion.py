@@ -11,12 +11,12 @@ import pandas as pd
 
 
 # Configure logging
-logging.basicConfig(filename=r'C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\log\ingestion.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(filename=r'C:\Users\sahus\Documents\TelecomChurn\logs\ingestion.log', level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
 def fetch_csv_data():
     try:
-        df = pd.read_csv(r'C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\input\customer_churn_dataset-training-master.csv')  # Replace with actual file path or cloud location
-        df.to_csv(r'C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\output\transactions_raw.csv', index=False)
+        df = pd.read_csv(r'C:\Users\sahus\Documents\Mtech\Second_Sem\DMML\Assgn\input\customer_churn_dataset-training-master.csv')  # Replace with actual file path or cloud location
+        df.to_csv(r'C:\Users\sahus\Documents\Mtech\Second_Sem\DMML\Assgn\output\transactions_raw.csv', index=False)
         logging.info("Successfully ingested CSV data")
     except Exception as e:
         logging.error(f"Failed to ingest CSV data: {e}")
@@ -47,7 +47,7 @@ def fetch_api_data():
         #5: Reading the CSV from the zip file and converting it to a dataframe.
         file_name = "WA_Fn-UseC_-Telco-Customer-Churn.csv"
         df = pd.read_csv(zf.open(file_name))
-        df.to_csv(r'C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\output\transactions_api.csv', index=False)
+        df.to_csv(r'C:\Users\sahus\Documents\Mtech\Second_Sem\DMML\Assgn\output\transactions_api.csv', index=False)
         logging.info(f"Data From API feteched successfully")
     except Exception as e:
         logging.error(f"Failed to fetch API data: {e}")

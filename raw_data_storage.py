@@ -27,5 +27,5 @@ def store_raw_data(file_path, source, data_type):
         print(f"Error storing file {file_path}: {e}")
 
 # Example usage
-store_raw_data(r"C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\output\transactions_api.csv", "api", "source")
-store_raw_data(r"C:\Users\sahus\Documents\Mtech\Second Sem\DMML\Assgn\output\transactions_raw.csv", "csv", "source")
+store_raw_data(r"C:\Users\sahus\Documents\Mtech\Second_Sem\DMML\Assgn\output\transactions_api.csv", "api", "source")
+store_raw_data(r"C:\Users\sahus\Documents\Mtech\Second_Sem\DMML\Assgn\output\transactions_raw.csv", "csv", "source")
