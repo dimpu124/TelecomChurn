@@ -6,7 +6,10 @@ from fastapi import FastAPI
 app = FastAPI()
 
 # Initialize Feature Store
-store = FeatureStore(repo_path=".")
+store = FeatureStore(repo_path=r"C:\Users\sahus\Documents\TelecomChurn\customer_churn_feature_store\feature_repo")
+
+#uvicorn feature_api:app --reload
+
 
 @app.get("/fetch_features")
 def fetch_features(customer_id: int):
@@ -23,7 +26,7 @@ def fetch_features(customer_id: int):
         entity_df=entity_df,
         features=[
             "customer_features_view:Age",
-            "customer_features_view:Total_Spend",
+            "customer_features_view:Total Spend",
         ]
     ).to_df()
 
