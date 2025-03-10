@@ -1,0 +1,3 @@
+2025-03-03 21:44:20,261 - INFO - Starting data ingestion pipeline
+2025-03-03 21:44:20,265 - ERROR - Failed to ingest CSV data: [Errno 13] Permission denied: 'C:\\Users\\sahus\\Documents\\Mtech\\Second Sem\\DMML\\Assgn\\input'
+2025-03-03 21:44:20,265 - INFO - Data ingestion pipeline completed
