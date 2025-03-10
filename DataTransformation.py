@@ -11,7 +11,7 @@ from sklearn.metrics import (accuracy_score, precision_score, recall_score,
                              ConfusionMatrixDisplay, roc_curve, auc)
 from sklearn.model_selection import train_test_split, GridSearchCV, learning_curve
 
-data = pd.read_csv(r'folder_with_data/raw.csv')
+data = pd.read_csv(r'C:\Users\sahus\OneDrive\Documents\TelecomChurn\folder_with_data\raw.csv')
 data = data.drop(columns=['customerID'], errors='ignore')
 print(data.columns)
 # 2. Encode binary categorical variables
@@ -63,7 +63,7 @@ conn = psycopg2.connect(
     dbname='postgres', user='postgres', password='admin', host='localhost', port='5432'
 )
 
-
+data.to_parquet(r'C:\Users\sahus\OneDrive\Documents\TelecomChurn\folder_with_data\dataprep')
 engine = create_engine(f'postgresql://{user}:{password}@localhost:5432/{dbname}')
 data.to_sql('transformed_data', engine,if_exists='replace',index=False)
 

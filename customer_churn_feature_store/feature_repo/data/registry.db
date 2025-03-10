@@ -1,0 +1,40 @@
+
+X
+8
+
+CustomerID"
+CustomerIDJcustomer_churn_feature_store
+ºïºæ–Ò±√ºïºæ–Ò±√
+S
+3
+__dummy"
+__dummy_idJcustomer_churn_feature_store
+ºïºæ–Ò±√ºïºæ–Ò±√1"$3b00820a-c3f5-4b15-b1d7-483fbd6d97b6*ºïºæ¿ÊÓ√2î
+Û
+customer_features_viewcustomer_churn_feature_store
+CustomerID"
+Age"
+
+Gender"
+
+Tenure"
+Usage_Frequency"
+Support Calls"
+Payment Delay"
+Total Spend"	
+Churn"
+Subscription Type Premium"
+Subscription Type Standard"
+Contract Length Monthly"
+Contract Length Quarterly"
+LongTermCustomer"
+TotalChargesPerTenure:yLast InteractionZdata/dataprep.parquetä1feast.infra.offline_stores.file_source.FileSource¢data/dataprep.parquet@b
+
+CustomerID
+ºïºæ–Ò±√ºïºæ–Ò±√Rœ
+Ã
+,feast.infra.online_stores.sqlite.SqliteTable"õ
+dC:\Users\sahus\Documents\TelecomChurn\customer_churn_feature_store\feature_repo\data\online_store.db3customer_churn_feature_store_customer_features_viewbòLast InteractionZdata/dataprep.parquetä1feast.infra.offline_stores.file_source.FileSource¢data/dataprep.parquet™customer_churn_feature_storeä>
+
+customer_churn_feature_store
+ºïºæ†÷√¶ºïºæ†÷√¶

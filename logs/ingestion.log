@@ -1,0 +1,4 @@
+2025-03-10 18:14:53,265 - INFO - Starting data ingestion pipeline
+2025-03-10 18:14:56,566 - INFO - Successfully ingested CSV data
+2025-03-10 18:14:58,688 - INFO - Data From API feteched successfully
+2025-03-10 18:14:58,691 - INFO - Data ingestion pipeline completed

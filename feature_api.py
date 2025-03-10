@@ -1,35 +1,31 @@
-from fastapi import FastAPI
-from feast import FeatureStore
 import pandas as pd
+from datetime import datetime, timezone, timedelta
+from feast import FeatureStore
+from fastapi import FastAPI
 
 app = FastAPI()
 
+# Initialize Feature Store
+store = FeatureStore(repo_path=".")
 
+@app.get("/fetch_features")
+def fetch_features(customer_id: int):
+    # Create Entity DataFrame with the provided CustomerID
+    entity_df = pd.DataFrame({
+        "CustomerID": [customer_id],
+        "event_timestamp": [datetime.utcnow().replace(tzinfo=timezone.utc)]
+    })
 
-# Initialize Feast feature store
-store = FeatureStore(repo_path="c:/Users/sahus/Documents/DMML/feature_repo/feature_repo")
+    entity_df["event_timestamp"] = pd.to_datetime(entity_df["event_timestamp"]) 
 
-@app.get("/features/{customer_id}")
-def get_customer_features(customer_id: int):
-    entity_df = pd.DataFrame({"customer_id": [customer_id]})
-    
-    feature_vector = store.get_online_features(
+    # Fetch Features
+    feature_data = store.get_historical_features(
+        entity_df=entity_df,
         features=[
             "customer_features_view:Age",
-            "customer_features_view:Gender",
-            "customer_features_view:Tenure",
-            "customer_features_view:Usage Frequency",
-            "customer_features_view:Support Calls",
-            "customer_features_view:Payment Delay",
-            "customer_features_view:Subscription Type",
-            "customer_features_view:Contract Length",
-            "customer_features_view:Total Spend",
-            "customer_features_view:Last Interaction",
-            "customer_features_view:Churn",
-            "customer_features_view:Avg Monthly Spend",
-            "customer_features_view:Activity Rate"
-        ],
-        entity_rows=entity_df.to_dict(orient="records"),
-    ).to_dict()
+            "customer_features_view:Total_Spend",
+        ]
+    ).to_df()
 
-    return feature_vector
+    # Convert to JSON and return
+    return feature_data.to_dict(orient="records")

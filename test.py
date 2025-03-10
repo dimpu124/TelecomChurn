@@ -1,27 +1,33 @@
-from feast import FeatureStore
 import pandas as pd
+from datetime import datetime, timedelta
+from feast import FeatureStore
+from datetime import datetime, timezone, timedelta
 
-# Load the feature store
+# Initialize Feature Store
 store = FeatureStore(repo_path=".")
 
-# Define a list of customer IDs you want features for
-customer_df = pd.DataFrame({"customer_id": ["2", "3"]})
+# Create Entity DataFrame
+entity_df = pd.DataFrame({
+    "CustomerID": [2, 3, 4,5,6],
+    "event_timestamp": [
+        datetime.utcnow().replace(tzinfo=timezone.utc),  # ✅ Convert to UTC
+        datetime.utcnow().replace(tzinfo=timezone.utc),
+        datetime.utcnow().replace(tzinfo=timezone.utc),
+        datetime.utcnow().replace(tzinfo=timezone.utc),
+        datetime.utcnow().replace(tzinfo=timezone.utc),
+    ]
+})
 
-# Fetch features
-features = store.get_online_features(
+
+entity_df["event_timestamp"] = pd.to_datetime(entity_df["event_timestamp"]) 
+
+# Fetch Features
+feature_data = store.get_historical_features(
+    entity_df=entity_df,
     features=[
         "customer_features_view:Age",
-        "customer_features_view:Gender",
-        "customer_features_view:Tenure",
-        "customer_features_view:Usage Frequency",
-        "customer_features_view:Support Calls",
-        "customer_features_view:Payment Delay",
-        "customer_features_view:Subscription Type",
-        "customer_features_view:Contract Length",
         "customer_features_view:Total Spend",
-        "customer_features_view:Churn",
-    ],
-    entity_rows=customer_df.to_dict("records"),
+    ]
 ).to_df()
 
-print(features)
+print(feature_data)
